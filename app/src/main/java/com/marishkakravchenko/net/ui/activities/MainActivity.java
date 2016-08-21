@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,9 +14,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.marishkakravchenko.net.R;
-import com.marishkakravchenko.net.data.network.req.Contributor;
+import com.marishkakravchenko.net.data.network.res.ContributorModel;
 import com.marishkakravchenko.net.data.network.RestService;
 import com.marishkakravchenko.net.data.network.ServiceGenerator;
+import com.marishkakravchenko.net.data.network.res.ResUserModel;
 
 import java.util.List;
 
@@ -27,11 +29,15 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String LOG_TAG = "my_log";
+
     @BindView(R.id.button)
     Button button;
 
     @BindView(R.id.main_coordinator_container)
     CoordinatorLayout mCoordinatorLayout;
+
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        textView = (TextView) findViewById(R.id.textView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -57,29 +65,28 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+                fetch();
             }
         });
     }
 
-    private void signIn() {
+    private void fetch() {
        /* if (NetworkStatusChecker.isNetworkAvailable(this)) {*/
-            RestService RestService = ServiceGenerator.createService(RestService.class);
-            Call<List<Contributor>> call = RestService.repoContributors("tseglevskiy", "testdata");
-            call.enqueue((new Callback<List<Contributor>>() {
-                @Override
-                public void onResponse(Call<List<Contributor>> call, Response<List<Contributor>> response) {
-                    final TextView textView = (TextView) findViewById(R.id.textView);
-                    textView.setText(response.body().toString());
-                }
+        RestService RestService = ServiceGenerator.createService(RestService.class);
+        Call<List<ResUserModel>> call = RestService.repoContributors("tseglevskiy", "testdata");
+        call.enqueue((new Callback<List<ResUserModel>>() {
+            @Override
+            public void onResponse(Call<List<ResUserModel>> call, Response<List<ResUserModel>> response) {
+                Log.d(LOG_TAG, response.body().toString() );
+            }
 
-                @Override
-                public void onFailure(Call<List<Contributor>> call, Throwable t) {
-                    final TextView textView = (TextView) findViewById(R.id.textView);
-                    textView.setText("Something went wrong: " + t.getMessage());
+            @Override
+            public void onFailure(Call<List<ResUserModel>> call, Throwable t) {
+                assert textView != null;
+                textView.setText("Something went wrong: " + t.getMessage());
 
-                }
-            }));
+            }
+        }));
        /* } else {
             showSnackBar("Сеть на данный момент недоступна, попробуйте позже");
         }*/

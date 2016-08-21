@@ -1,9 +1,9 @@
-package com.marishkakravchenko.net.data.network.req;
+package com.marishkakravchenko.net.data.network.res;
 
 /**
  * Created by Marina on 16.08.2016.
  */
-public class Contributor {
+public class ContributorModel {
 
     String login;
     String html_url;

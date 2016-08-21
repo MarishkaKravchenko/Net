@@ -19,7 +19,7 @@ public class HeaderInterceptor implements Interceptor{
         Request.Builder requestBuilder = original.newBuilder()
               /*  .header("X-Access-Token", pm.getAuthToken())
                 .header("Request-User-Id", pm.getUserId())*/
-                .header("User-Agent", "Devintensive");
+                .header("User-Agent", "Marishka");
 
         Request request = requestBuilder.build();
 

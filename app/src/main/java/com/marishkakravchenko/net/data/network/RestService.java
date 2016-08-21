@@ -1,6 +1,7 @@
 package com.marishkakravchenko.net.data.network;
 
-import com.marishkakravchenko.net.data.network.req.Contributor;
+import com.marishkakravchenko.net.data.network.res.ContributorModel;
+import com.marishkakravchenko.net.data.network.res.ResUserModel;
 
 import java.util.List;
 
@@ -13,9 +14,8 @@ public interface RestService {
 /*    @Headers({
             "Custom-Header : me header Value"
     })*/
-@GET("repos/{owner}/{repo}/contributors")
-Call<List<Contributor>> repoContributors(
+@GET("{owner}/{repo}/master/test1.json")
+Call<List<ResUserModel>> repoContributors(
         @Path("owner") String owner,
         @Path("repo") String repo);
-
 }
