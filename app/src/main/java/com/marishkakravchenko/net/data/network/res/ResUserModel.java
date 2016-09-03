@@ -8,94 +8,109 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResUserModel {
-    @SerializedName("users")
-    @Expose
-    public List<User> users = new ArrayList<User>();
 
-    @Override
-    public String toString() {
-        return users.get(0).name;
+    public List<User> getUsers() {
+        return users;
     }
 
+    @SerializedName("users")
+    @Expose
+    private List<User> users = new ArrayList<User>();
+    
     public class User {
 
         @SerializedName("id")
-        @Expose
-        public String id;
+        @Expose private
+        String id;
         @SerializedName("index")
-        @Expose
-        public int index;
+        @Expose private
+        int index;
         @SerializedName("guid")
-        @Expose
-        public String guid;
+        @Expose private
+        String guid;
         @SerializedName("isActive")
-        @Expose
-        public boolean isActive;
+        @Expose private
+        boolean isActive;
         @SerializedName("balance")
-        @Expose
-        public String balance;
+        @Expose private
+        String balance;
         @SerializedName("picture")
-        @Expose
-        public String picture;
+        @Expose private
+        String picture;
         @SerializedName("age")
-        @Expose
-        public int age;
+        @Expose private
+        int age;
         @SerializedName("eyeColor")
-        @Expose
-        public String eyeColor;
+        @Expose private
+        String eyeColor;
         @SerializedName("name")
-        @Expose
-        public String name;
+        @Expose private
+        String name;
         @SerializedName("gender")
-        @Expose
-        public String gender;
+        @Expose private
+        String gender;
         @SerializedName("company")
-        @Expose
-        public String company;
+        @Expose private
+        String company;
         @SerializedName("email")
-        @Expose
-        public String email;
+        @Expose private
+        String email;
         @SerializedName("phone")
-        @Expose
-        public String phone;
+        @Expose private
+        String phone;
         @SerializedName("address")
-        @Expose
-        public String address;
+        @Expose private
+        String address;
         @SerializedName("about")
-        @Expose
-        public String about;
+        @Expose private
+        String about;
         @SerializedName("registered")
-        @Expose
-        public String registered;
+        @Expose private
+        String registered;
         @SerializedName("latitude")
-        @Expose
-        public float latitude;
+        @Expose private
+        float latitude;
         @SerializedName("longitude")
-        @Expose
-        public float longitude;
+        @Expose private
+        float longitude;
         @SerializedName("tags")
-        @Expose
-        public List<String> tags = new ArrayList<String>();
+        @Expose private
+        List<String> tags = new ArrayList<String>();
         @SerializedName("friends")
-        @Expose
-        public List<Friend> friends = new ArrayList<Friend>();
+        @Expose private
+        List<Friend> friends = new ArrayList<Friend>();
         @SerializedName("greeting")
-        @Expose
-        public String greeting;
+        @Expose private
+        String greeting;
         @SerializedName("favoriteFruit")
-        @Expose
-        public String favoriteFruit;
+        @Expose private
+        String favoriteFruit;
 
+        public String getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public int getAge() {
+            return age;
+        }
     }
 
     public class Friend {
 
         @SerializedName("id")
-        @Expose
-        public int id;
+        @Expose private
+        int id;
         @SerializedName("name")
-        @Expose
-        public String name;
+        @Expose private
+        String name;
 
     }
 }

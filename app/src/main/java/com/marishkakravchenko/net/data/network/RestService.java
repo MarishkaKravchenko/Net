@@ -15,7 +15,7 @@ public interface RestService {
             "Custom-Header : me header Value"
     })*/
 @GET("{owner}/{repo}/master/test1.json")
-Call<List<ResUserModel>> repoContributors(
+Call<ResUserModel> repoContributors(
         @Path("owner") String owner,
         @Path("repo") String repo);
 }

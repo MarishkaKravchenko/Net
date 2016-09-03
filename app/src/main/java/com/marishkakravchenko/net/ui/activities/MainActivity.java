@@ -14,11 +14,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.marishkakravchenko.net.R;
-import com.marishkakravchenko.net.data.network.res.ContributorModel;
 import com.marishkakravchenko.net.data.network.RestService;
 import com.marishkakravchenko.net.data.network.ServiceGenerator;
 import com.marishkakravchenko.net.data.network.res.ResUserModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -71,17 +71,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetch() {
-       /* if (NetworkStatusChecker.isNetworkAvailable(this)) {*/
+      /* if (NetworkStatusChecker.isNetworkAvailable(this)) {*/
         RestService RestService = ServiceGenerator.createService(RestService.class);
-        Call<List<ResUserModel>> call = RestService.repoContributors("tseglevskiy", "testdata");
-        call.enqueue((new Callback<List<ResUserModel>>() {
+        Call<ResUserModel> call = RestService.repoContributors("tseglevskiy", "testdata");
+        call.enqueue((new Callback<ResUserModel>() {
             @Override
-            public void onResponse(Call<List<ResUserModel>> call, Response<List<ResUserModel>> response) {
-                Log.d(LOG_TAG, response.body().toString() );
+            public void onResponse(Call<ResUserModel> call, Response<ResUserModel> response) {
+                assert textView != null;
+                getUserData(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<ResUserModel>> call, Throwable t) {
+            public void onFailure(Call<ResUserModel> call, Throwable t) {
                 assert textView != null;
                 textView.setText("Something went wrong: " + t.getMessage());
 
@@ -90,6 +91,15 @@ public class MainActivity extends AppCompatActivity {
        /* } else {
             showSnackBar("Сеть на данный момент недоступна, попробуйте позже");
         }*/
+    }
+
+    private void getUserData(ResUserModel userModel) {
+
+        for (ResUserModel.User user : userModel.getUsers()) {
+            System.out.println(user.getName());
+        }
+
+
     }
 
     @Override
